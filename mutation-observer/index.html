@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="addItem()">add</button>
+    <button onclick="attributeChange()">attribute</button>
+
+    <ul>
+        <li>1 item</li>
+    </ul>
+
+    <script>        
+        function addItem() {
+            const list = document.querySelector("ul");
+            const lastRow = document.querySelector("li:last-child");
+            const num = parseInt(lastRow.textContent.replace(/[^0-9]/g, "")) + 1;
+
+            const row = document.createElement("li");
+            row.textContent = num + ' item';
+            list.appendChild(row);   
+            
+            
+            list.classList.add(`list${Math.floor(Math.random() * 100)}`)
+        }
+
+        function attributeChange() {
+            const target = document.querySelector('ul')
+            target.classList.add(`list${Math.floor(Math.random() * 100)}`)
+        }
+
+        // 1. observer
+        const observer = new MutationObserver((mutationList) => {
+            mutationList.forEach(mutation => {
+                if (mutation.type === 'childList') {
+                    console.log('childList changed');
+                }; 
+
+                if (mutation.type === 'attributes') {
+                    console.log('attributes changed');
+                };                
+            })
+        });
+
+        const target = document.querySelector('ul');
+
+        const config = {
+            childList: true,
+            attributes: true,
+        }
+
+        // 2. observe
+        observer.observe(target, config);
+
+        // 3. disconnect
+        // observer.disconnect()
+    </script>
+</body>
+</html>
