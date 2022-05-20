@@ -1,5 +1,4 @@
 import "./style.css";
-
 const root = document.getElementById("app");
 const fetch = document.getElementById("fetchMore");
 
